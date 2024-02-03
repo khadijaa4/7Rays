@@ -27,7 +27,3 @@ npm start
 ```
 
 You should then be able to visit `localhost:9000` in your browser and see the server running.
-
-# Project Description
-A web application for doctors to use to track patient informtion.
-Allows doctors to create, read, update, and delete structured radiology reports as an assessment of x-ray images for exams of patients with COVID-19.
