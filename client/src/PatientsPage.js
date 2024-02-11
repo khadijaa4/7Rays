@@ -1,93 +1,120 @@
-import React, { useState } from "react";
-
-
-//TODO: Replace with actual data from the server via API call
-//TODO: Add pagination to handle large number of patients
-//TODO: Add sorting and filtering options
-//TODO: Add error handling for failed API calls
-//TODO: Add loading state while fetching data
-//TODO: Add a way to display details of a single exam
-//TODO: Add a way to display details of a single patient
-//TODO: Add a way to display details of a single image
-//TODO: Add a way to display details of a single finding
-// Placeholder data to simulate fetched data
-const patientsData = [
-  {
-    patientId: "COVID-19-AR-16406504",
-    exams: [
-      {
-        examId: "Exam-2",
-        image: "path-to-image",
-        findings:
-          "Lung volumes remain low but there appears to have been clearing since prior radiograph",
-        brixiaScore: "1,2,3,4",
-        age: 39,
-        sex: "M",
-        bmi: 33.5,
-        zipCode: "722",
-      },
-      // ...other exams
-    ],
-  },
-  // ...other patients
-];
+import React, { useMemo, useState } from "react";
+import { useTable } from "react-table";
+import mockPatientsData from "./mockPatientsData"; // Import your mock data
 
 const PatientsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+  // Define columns for react-table
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Exam ID",
+        accessor: "examId", // Accessor is the "key" in the data
+      },
+      {
+        Header: "Image",
+        accessor: "image",
+        // Cell method will render the content of each cell
+        Cell: ({ value }) => (
+          <img src={value} alt="X-Ray" className="w-16 h-16" />
+        ),
+      },
+      {
+        Header: "Key Findings",
+        accessor: "findings",
+      },
+      {
+        Header: "Brixia Score",
+        accessor: "brixiaScore",
+      },
+      {
+        Header: "Age",
+        accessor: "age",
+      },
+      {
+        Header: "Sex",
+        accessor: "sex",
+      },
+      {
+        Header: "BMI",
+        accessor: "bmi",
+      },
+      {
+        Header: "Zip Code",
+        accessor: "zipCode",
+      },
+    ],
+    []
+  );
 
-  // Assuming only one patient's details are displayed per page
-  const patient = patientsData[0];
+  // Create a react-table instance with our columns and data
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns,
+      data: mockPatientsData[0].exams, // Replace this with actual API data later
+    });
 
   return (
     <div className="container mx-auto p-4">
       <div className="text-center">
         <h1 className="text-3xl font-bold mb-4">Patient Details</h1>
-        <h2 className="text-xl">Patient ID: {patient.patientId}</h2>
-        <p className="mb-6">Number of Exams: {patient.exams.length}</p>
-        <div>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Search..."
-          />
-        </div>
+        <h2 className="text-xl">Patient ID: {mockPatientsData[0].patientId}</h2>
+        <p className="mb-6">
+          Number of Exams: {mockPatientsData[0].exams.length}
+        </p>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Search..."
+        />
       </div>
-
       <div className="overflow-x-auto mt-6">
-        <table className="table-auto w-full">
+        {/* Apply getTableProps method to spread the necessary props onto your <table> */}
+        <table
+          {...getTableProps()}
+          className="min-w-full divide-y divide-gray-200"
+        >
           <thead>
-            <tr className="bg-gray-100">
-              <th className="px-4 py-2">Exam ID</th>
-              <th className="px-4 py-2">Image</th>
-              <th className="px-4 py-2">Key Findings</th>
-              <th className="px-4 py-2">Brixia Score</th>
-              <th className="px-4 py-2">Age</th>
-              <th className="px-4 py-2">Sex</th>
-              <th className="px-4 py-2">BMI</th>
-              <th className="px-4 py-2">Zip Code</th>
-            </tr>
-          </thead>
-          <tbody>
-            {patient.exams.map((exam, index) => (
-              <tr key={index} className="border-b">
-                <td className="px-4 py-2">{exam.examId}</td>
-                <td className="px-4 py-2">
-                  <img src={exam.image} alt="X-Ray" className="w-16 h-16" />
-                </td>
-                <td className="px-4 py-2">{exam.findings}</td>
-                <td className="px-4 py-2">{exam.brixiaScore}</td>
-                <td className="px-4 py-2">{exam.age}</td>
-                <td className="px-4 py-2">{exam.sex}</td>
-                <td className="px-4 py-2">{exam.bmi}</td>
-                <td className="px-4 py-2">{exam.zipCode}</td>
+            {/* Apply TailwindCSS classes to your header as needed */}
+            {headerGroups.map((headerGroup) => (
+              <tr
+                {...headerGroup.getHeaderGroupProps()}
+                className="bg-gray-100"
+              >
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps()}
+                    className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    {column.render("Header")}
+                  </th>
+                ))}
               </tr>
             ))}
+          </thead>
+          {/* Apply TailwindCSS classes to your body and rows as needed */}
+          <tbody
+            {...getTableBodyProps()}
+            className="bg-white divide-y divide-gray-200"
+          >
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td
+                      {...cell.getCellProps()}
+                      className="px-4 py-2 whitespace-nowrap"
+                    >
+                      {cell.render("Cell")}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
