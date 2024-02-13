@@ -1,17 +1,25 @@
-const express = require('express')
-const cors =require('cors')
-const mongoose = require('mongoose')
 
-require('dotenv').config();//enviroment variable, check .env
-const app= express()
-const port = process.env.PORT || 5000
+import express from 'express';
+import { PORT, ATLAS_URI} from './config';
+import mongoose from 'mongoose';
+import Exam from './models/exam';
 
-app.use(cors());
-app.use(express.json);
 
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex:true});
-const connection= mongoose.connection;
-connection.once('open',() =>{
-    console.log("MongoDB database connection established successfully");
-})
+const app = express();
+
+app.get('/', (request, response) =>{
+    console.log(request);
+    return response.status(200).send('7 Rays Database');
+});
+
+
+mongoose.connect(ATLAS_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('App is connected to the database');
+        app.listen(PORT, () => {
+            console.log(`App is listening to port: ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.error(error);
+    });
