@@ -29,7 +29,17 @@ const getExamById = async (req, res) => {
 // Creates an exam in the database
 const postExam = async (req, res) => {
   const exam = new Exam({
-    // Fill in exam data from req.body | Waiting to know data structure
+    PATIENT_ID: req.body.PATIENT_ID,
+    AGE: req.body.AGE,
+    SEX: req.body.SEX,
+    ZIP: req.body.ZIP,
+    LATEST_BMI: req.body.LATEST_BMI,
+    LATEST_WEIGHT: req.body.LATEST_WEIGHT,
+    png_filename: req.body.png_filename,
+    exam_Id: req.body.exam_Id,
+    ICU_Admit: req.body.ICU_Admit,
+    ICU_admits: req.body.ICU_admits,
+    MORTALITY: req.body.MORTALITY
   });
   try {
     const newExam = await exam.save();
@@ -46,11 +56,10 @@ const postExam = async (req, res) => {
 // Deletes an exam from the database by its ID
 const deleteExamById = async (req, res) => {
   try {
-    const exam = await Exam.findById(req.params.id);
+    const exam = await Exam.findByIdAndDelete(req.params.id);
     if (exam == null) {
       return res.status(404).json({ message: 'Cannot find exam' });
     }
-    await exam.remove();
     res.json({ message: 'Exam deleted' });
   } catch (err) {
     if (err.kind === 'ObjectId') {
@@ -63,12 +72,10 @@ const deleteExamById = async (req, res) => {
 // Updates an exam in the database by its ID
 const patchExamById = async (req, res) => {
   try {
-    const exam = await Exam.findById(req.params.id);
-    if (exam == null) {
+    const updatedExam = await Exam.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (updatedExam == null) {
       return res.status(404).json({ message: 'Cannot find exam' });
     }
-    // update exam data from req.body | Waiting to know data structure
-    const updatedExam = await exam.save();
     res.json(updatedExam);
   } catch (err) {
     if (err.kind === 'ObjectId') {

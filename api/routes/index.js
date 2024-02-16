@@ -9,13 +9,7 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 
 //How come you didn't require the routes here in the index.js file
-
-//const express = require('express)
-//const router = express.Router()
-
-//require('./routes/standup')(router)
-
-//I think you might have something similary in the exam-controller.js section. 
-
-//module.exports = router;
-
+    // We're not doing much with this file.
+    // All the routes we're actually going to use are in exams.js
+    // This file is just to show that the API is working properly.
+    // It displays the message on line 6 when you go to the root URL of the API. `http://localhost:9000/`

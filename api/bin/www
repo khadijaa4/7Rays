@@ -3,9 +3,11 @@
 /**
  * Module dependencies.
  */
-
+// Import the app from api/app.js
 var app = require('../app');
+// Log debug informaiton for api server
 var debug = require('debug')('api:server');
+// Import http module for creating server
 var http = require('http');
 
 /**
@@ -13,6 +15,7 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '9000');
+
 app.set('port', port);
 
 /**

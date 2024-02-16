@@ -7,18 +7,18 @@ const router = express.Router();
 const examController = require('../controllers/exam-controller');
 
 // Get all exams
-router.get('/exams', examController.getExams);
+router.get('/', examController.getExams);
 
 // Get a single exam by ID
-router.get('/exams/:id', examController.getExamById);
+router.get('/:id', examController.getExamById);
 
 // Create a new exam
-router.post('/exams', examController.postExam);
+router.post('/', examController.postExam);
 
 // Delete an exam by ID
-router.delete('/exams/:id', examController.deleteExamById);
+router.delete('/:id', examController.deleteExamById);
 
 // Update an exam by ID
-router.patch('/exams/:id', examController.patchExamById);
+router.patch('/:id', examController.patchExamById);
 
 module.exports = router;
