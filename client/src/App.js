@@ -1,17 +1,17 @@
-import './App.css';
 
 import { useApi } from './hooks/use-api';
+import "./App.css";
+import ExamTable from './ExamTable';
 
 function App() {
-  const { response } = useApi();
+
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          {response}
-        </p>
-      </header>
+      <div className="container">
+      <ExamTable/>
+
+      </div>
     </div>
   );
 }
