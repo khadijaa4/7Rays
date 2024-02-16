@@ -9,7 +9,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
+<<<<<<< HEAD
     "source-map": "^0.7.4",
+=======
+    "react-table": "^7.8.0",
+>>>>>>> 9676b86a4337ed80ed18085256d6859ec0749c80
     "web-vitals": "^2.1.4"
   },
   "scripts": {
