@@ -1,4 +1,4 @@
-import fakeData from "./MOCK_DATA.json";
+import fakeData from "./patientData.json";
 import * as React from "react";
 import { useTable } from "react-table";
 
@@ -8,11 +8,11 @@ function ExamTable() {
       () => [
         {
           Header: "Patient ID",
-          accessor: "patient_id",
+          accessor: "PATIENT_ID",
         },
         {
           Header: "Exam ID",
-          accessor: "exam_id",
+          accessor: "exam_Id",
         },
         {
           Header: "Image",
@@ -20,20 +20,37 @@ function ExamTable() {
         },
         {
           Header: "Age",
-          accessor: "age",
+          accessor: "AGE",
         },
         {
           Header: "Gender",
-          accessor: "gender",
+          accessor: "SEX",
         },
         {
           Header: "Zip Code",
-          accessor: "zip",
+          accessor: "ZIP",
         },
         {
             Header: "BMI",
-            accessor: "latest_bmi",
+            accessor: "LATEST_BMI",
           },
+        
+        {
+            Header: "Latest Weight",
+            accessor: "LATEST WEIGHT",
+          },
+        {
+            Header: "ICU Admit",
+            accessor: "ICU Admit",
+          },
+        {
+            Header: "# ICU admits",
+            accessor: "# ICU admits",
+          },
+          {
+            Header: "Mortality",
+            accessor: "MORTALITY",
+          },  
       ],
       []
     );
