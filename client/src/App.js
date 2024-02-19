@@ -12,7 +12,7 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <p>{response}</p>
+          {/* <p>{response}</p> */}
         </header>
         <ExamTable/>
         {/* Define routes within Routes component */}
