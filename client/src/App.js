@@ -14,6 +14,9 @@ function App() {
         <header className="App-header">
           {/* <p>{response}</p> */}
         </header>
+        <div>
+        <button onClick={console.log("clicked!")}>Test</button>
+        </div>
         <ExamTable/>
         {/* Define routes within Routes component */}
         <Routes>
