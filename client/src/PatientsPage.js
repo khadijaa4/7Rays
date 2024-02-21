@@ -4,7 +4,7 @@ import mockPatientsData from "./mockPatientsData"; // Import your fake data
 
 const PatientsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const patient = mockPatientsData[0];
   // Define columns for react-table
   const columns = useMemo(() => [
     {
@@ -63,6 +63,8 @@ const PatientsPage = () => {
     <div className="container mx-auto p-4">
       <div className="text-center mb-4">
         <h1 className="text-3xl font-bold">Patient Details</h1>
+        <p className="text-lg">Patient ID: {patient.patientId}</p>
+        <p className="text-lg">Number of Exams: {patient.exams.length}</p>
         <input
           type="text"
           value={searchTerm}

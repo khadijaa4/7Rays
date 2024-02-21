@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { useApi } from "./hooks/use-api";
 import PatientsPage from "./PatientsPage"; // Ensure the import path is correct
-// Import other components/pages if necessary
+import Header from "./Header"
 import ExamTable from './ExamTable'
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
         <header className="App-header">
           {/* <p>{response}</p> */}
         </header>
-        
+        <Header /> 
         {/* Define routes within Routes component */}
         <Routes>
           {/* Define a route for PatientsPage */}
