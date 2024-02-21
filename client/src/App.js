@@ -4,16 +4,17 @@ import "./App.css";
 import { useApi } from "./hooks/use-api";
 import PatientsPage from "./PatientsPage"; // Ensure the import path is correct
 // Import other components/pages if necessary
-
+import ExamTable from './ExamTable'
 function App() {
-  const { response } = useApi();
+
 
   return (
     <Router>
       <div className="App">
         <header className="App-header">
-          <p>{response}</p>
+          {/* <p>{response}</p> */}
         </header>
+        <ExamTable/>
         {/* Define routes within Routes component */}
         <Routes>
           {/* Define a route for PatientsPage */}
