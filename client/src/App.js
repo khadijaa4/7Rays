@@ -6,7 +6,6 @@ import PatientsPage from "./PatientsPage";
 import CreateExamPage from './CreateExamPage';
 // Import other components/pages if necessary
 import ExamTable from './ExamTable'
-import CreateExamPage from "./CreateExamPage";
 function App() {
 
 

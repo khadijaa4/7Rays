@@ -44,7 +44,11 @@ const CreateExamPage = () => {
     const handleRandomExam = () => {
         // Implement the logic to generate random exam data
     };
-
+        // Set form values
+    const setFormValues = (values) => {
+        setFormData({ ...formData, ...values });
+    };
+    
         // Handle cancel button click
     const handleCancel = () => {
         setFormValues({
@@ -65,7 +69,7 @@ const CreateExamPage = () => {
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-3xl font-bold mb-4 text-center">Create Exam</h1>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form onSubmit={handleAddExam} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Patient Info Section */}
                 <div className="md:col-span-1">
                     <h2 className="text-xl font-semibold mb-3">Patient Info</h2>
