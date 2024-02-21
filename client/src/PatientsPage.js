@@ -1,10 +1,28 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useTable } from "react-table";
 import mockPatientsData from "./mockPatientsData"; // Import your fake data
 
 const PatientsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredExams, setFilteredExams] = useState(mockPatientsData[0].exams);
+  // Use the first patient in the mock data as an example
   const patient = mockPatientsData[0];
+
+  useEffect(() => {
+    // Filter exams based on search term
+    const filtered = patient.exams.filter(exam => {
+      // Check if any of the exam properties includes the search term
+      // You might need to adjust this depending on the structure of your data
+      return Object.values(exam).some(value =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+    // Update the patient's exams with the filtered exams
+    
+    setFilteredExams(filtered);
+  }, [searchTerm, patient.exams]); // Re-run the effect when the search term changes
+
+
   // Define columns for react-table
   const columns = useMemo(() => [
     {
@@ -48,7 +66,7 @@ const PatientsPage = () => {
   // Create a react-table instance with our columns and data
   const tableInstance = useTable({
     columns,
-    data: mockPatientsData[0].exams,
+    data: filteredExams, // Use the filtered exams
   });
 
   const {
