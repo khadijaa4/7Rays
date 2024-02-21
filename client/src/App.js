@@ -14,7 +14,7 @@ function App() {
         <header className="App-header">
           {/* <p>{response}</p> */}
         </header>
-        <ExamTable/>
+        
         {/* Define routes within Routes component */}
         <Routes>
           {/* Define a route for PatientsPage */}
@@ -22,8 +22,7 @@ function App() {
           {/* You can define more routes for other pages/components here */}
           {/* Define a default/fallback route if no other route matches */}
           <Route
-            path="/"
-            element={<div>Home Page or some default content</div>}
+            path="/" element={<div>element={<ExamTable />}</div>}
           />
         </Routes>
       </div>
