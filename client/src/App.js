@@ -5,6 +5,7 @@ import { useApi } from "./hooks/use-api";
 import PatientsPage from "./PatientsPage"; // Ensure the import path is correct
 // Import other components/pages if necessary
 import ExamTable from './ExamTable'
+import AdminPage from "./Admin";
 function App() {
 
 
@@ -14,11 +15,13 @@ function App() {
         <header className="App-header">
           {/* <p>{response}</p> */}
         </header>
-        <ExamTable/>
+
         {/* Define routes within Routes component */}
         <Routes>
           {/* Define a route for PatientsPage */}
+          <Route path="/" element={<ExamTable/>} />
           <Route path="/patients" element={<PatientsPage />} />
+          <Route path="/admin" element={<AdminPage />} />
           {/* You can define more routes for other pages/components here */}
           {/* Define a default/fallback route if no other route matches */}
           <Route
