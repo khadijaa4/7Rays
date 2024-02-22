@@ -2,10 +2,14 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { useApi } from "./hooks/use-api";
+import { useState } from "react"
+import { SearchBar } from "./SearchBar"
+import { SearchResultsList} from "./SearchResultsList";
 import PatientsPage from "./PatientsPage"; // Ensure the import path is correct
 // Import other components/pages if necessary
 import ExamTable from './ExamTable'
 function App() {
+  const [results, setResults] = useState([]);
 
 
   return (
@@ -14,6 +18,8 @@ function App() {
         <header className="App-header">
           {/* <p>{response}</p> */}
         </header>
+        <SearchBar setResults={setResults} results={results}/>
+        <SearchResultsList results={results}/>
         <ExamTable/>
         {/* Define routes within Routes component */}
         <Routes>
@@ -29,6 +35,7 @@ function App() {
       </div>
     </Router>
   );
+
 }
 
 export default App;
