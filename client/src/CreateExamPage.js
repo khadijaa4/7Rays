@@ -19,8 +19,6 @@ const CreateExamPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState(null);
     const [errors, setErrors] = useState({});
-  
-
     const [error, setError] = useState(null);
 
     // simple front-end validation
@@ -71,13 +69,14 @@ const CreateExamPage = () => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                    const data = await response.json();
+                    //const data = await response.json();
                     setMessage('Exam added successfully');
                     setFormData(initialFormData);
                 } catch (error) {
                     // Log and display any error messages
                     setMessage(`Error: ${error.message || 'There was an error adding the exam'}`);
                     console.error('There was an error adding the exam:', error);
+                    setError(error);
                 } finally {
                     // Reset loading state
                     setIsLoading(false);
@@ -120,7 +119,7 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
-                                // Display error message if the patientId field has an error
+                                {/* Display error message if the patientId field has an error */}
                                 {errors.patientId && <p className="text-red-500" text-xs mt-1>{errors.patientId}</p>}
                             </div>
 
@@ -136,7 +135,7 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
-                                // Display error message if the age field has an error
+                                {/* Display error message if the age field has an error*/}
                                 {errors.age && <p className="text-red-500" text-xs mt-1>{errors.age}</p>}
                             </div>
 
@@ -151,8 +150,8 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
-                                // Display error message
-                                {errors.sex && <p className="text-red-500" text-xs mt-1>{errors}</p>
+                                {/* Display error message*/}
+                                {errors.sex && <p className="text-red-500" text-xs mt-1>{errors}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -166,6 +165,8 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
+                                {/* Display error message if the bmi field has an error */}
+                                {errors.bmi && <p className="text-red-500" text-xs mt-1>{errors.bmi}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -179,6 +180,8 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
+                                {/* Display error message if the zipCode field has an error */}
+                                {errors.zipCode && <p className="text-red-500" text-xs mt-1>{errors.zipCode}</p>}
                             </div>
                         </div>
 
@@ -196,6 +199,8 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
+                                {/* Display error message if the examId field has an error */}
+                                {errors.examId && <p className="text-red-500" text-xs mt-1>{errors.examId}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -209,6 +214,8 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
+                                {/* Display error message if the imageUrl field has an error */}
+                                {errors.imageUrl && <p className="text-red-500" text-xs mt-1>{errors.imageUrl}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -221,6 +228,8 @@ const CreateExamPage = () => {
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded"
                                 />
+                                {/* Display error message if the date field has an error */}
+                                {errors.date && <p className="text-red-500" text-xs mt-1>{errors.date}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -232,6 +241,8 @@ const CreateExamPage = () => {
                                     rows="3"
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 ></textarea>
+                                {/* Display error message if the keyFindings field has an error */}
+                                {errors.keyFindings && <p className="text-red-500" text-xs mt-1>{errors.keyFindings}</p>}
                             </div>
 
                             <div className="mb-4">
@@ -244,6 +255,8 @@ const CreateExamPage = () => {
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>
+                            {/* Display error message if the brixiaScore field has an error */}
+                            {errors.brixiaScore && <p className="text-red-500" text-xs mt-1>{errors.brixiaScore}</p>}
                         </div>
 
                         {/* Buttons Section */}
