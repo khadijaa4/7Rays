@@ -20,13 +20,29 @@ const CreateExamPage = () => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
+
     // Handle add exam
-    const handleAddExam = (e) => {
+    const handleAddExam = async (e) => {
         e.preventDefault();
-        // Here you would typically send the formData to the backend to add the exam
-        console.log('Adding Exam with form data: ', formData);
-        // Optionally reset the form here if needed
-        setFormData({
+    
+        try {
+            // Replace 'http://localhost:5000' with the actual base URL of your backend
+            const response = await fetch('http://localhost:5000/api/exams', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            console.log('Exam added:', data);
+            // Optionally, you can redirect or clear the form here if needed
+            setFormData({
             patientId: '',
             age: '',
             sex: '',
@@ -38,7 +54,11 @@ const CreateExamPage = () => {
             keyFindings: '',
             brixiaScore: ''
         });
+        } catch (error) {
+            console.error('There was an error adding the exam:', error);
+        }
     };
+    
    
     // Handle random exam generation
     const handleRandomExam = () => {
