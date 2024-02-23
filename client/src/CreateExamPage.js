@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 
 const CreateExamPage = () => {
-    // State for form fields
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState(initialFormData);
+    const [isLoading, setIsLoading] = useState(false);
+    const [message, setMessage] = useState(null);
+
+    // Initial form data
+    const initialFormData = {
         patientId: '',
         age: '',
         sex: '',
@@ -15,7 +19,27 @@ const CreateExamPage = () => {
         brixiaScore: ''
     });
 
+    const [error, setError] = useState(null);
+
+    // simple front-end validation
+    const validateForm = () => {
+        let tempErrors = {};
+        if (!formData.patientId.trim()) tempErrors.patientId = 'Patient ID is required';
+        if (!formData.age || formData.age <= 0) tempErrors.age = 'Valid age is required';
+        if (!formData.sex.trim()) tempErrors.sex = 'Sex is required';
+        if (!formData.bmi || formData.bmi <= 0) tempErrors.bmi = 'Valid BMI is required';
+        if (!formData.zipCode.trim()) tempErrors.zipCode = 'Zip code is required';
+        if (!formData.examId.trim()) tempErrors.examId = 'Exam ID is required';
+        if (!formData.imageUrl.trim()) tempErrors.imageUrl = 'Image URL is required';
+        if (!formData.date.trim()) tempErrors.date = 'Date is required';
+        if (!formData.keyFindings.trim()) tempErrors.keyFindings = 'Key findings are required';
+        if (!formData.brixiaScore.trim()) tempErrors.brixiaScore = 'Brixia score is required';
+        setErrors(tempErrors);
+        return Object.keys(tempErrors).length === 0; // Returns true if no errors
+    };
+
     // Handle input change
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -24,39 +48,36 @@ const CreateExamPage = () => {
     // Handle add exam
     const handleAddExam = async (e) => {
         e.preventDefault();
-    
-        try {
-            // Replace 'http://localhost:5000' with the actual base URL of your backend
-            const response = await fetch('http://localhost:5000/api/exams', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-    
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+        setIsLoading(true);
+        setMessage(null);
+        
+        // Here add form validation before sending the request
+        const isValid = validateForm();
+        if (!isValid) {
+            setMessage('Please fix the errors in the form before submitting');
+            setIsLoading(false);
+
+        if (isValid) {
+            try {
+                const response = await fetch('http://localhost:9000/api/exams', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+        
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+        
+                const data = await response.json();
+                setMessage('Exam added successfully');
+                setFormData(initialFormData);
+            } catch (error) {
+                setMessage(`Error: ${error.message || 'There was an error adding the exam'}`);
+                console.error('There was an error adding the exam:', error);
+            } finally {
+                setIsLoading(false);
             }
-    
-            const data = await response.json();
-            console.log('Exam added:', data);
-            // Optionally, you can redirect or clear the form here if needed
-            setFormData({
-            patientId: '',
-            age: '',
-            sex: '',
-            bmi: '',
-            zipCode: '',
-            examId: '',
-            imageUrl: '',
-            date: '',
-            keyFindings: '',
-            brixiaScore: ''
-        });
-        } catch (error) {
-            console.error('There was an error adding the exam:', error);
-        }
     };
     
    
@@ -69,26 +90,16 @@ const CreateExamPage = () => {
         setFormData({ ...formData, ...values });
     };
     
-        // Handle cancel button click
+    // Handle cancel button click
     const handleCancel = () => {
-        setFormValues({
-            patientId: '',
-            age: '',
-            sex: '',
-            bmi: '',
-            zipCode: '',
-            examId: '',
-            imageUrl: '',
-            date: '',
-            keyFindings: '',
-            brixiaScore: ''
-        });
+        setFormData(initialFormData);
+        setMessage(null);
     };
-
 
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-3xl font-bold mb-4 text-center">Create Exam</h1>
+            {message && <div>{message}</div>}
             <form onSubmit={handleAddExam} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Patient Info Section */}
                 <div className="md:col-span-1">
@@ -227,8 +238,9 @@ const CreateExamPage = () => {
                 {/* Buttons Section */}
                 <div className="md:col-span-2 flex justify-between">
                     <button
-                        type="button"
+                        type="submit"
                         onClick={handleAddExam}
+                        disabled={isLoading}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     >
                         Add Exam
