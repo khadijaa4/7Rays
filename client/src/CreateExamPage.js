@@ -151,7 +151,7 @@ const CreateExamPage = () => {
                                     required
                                 />
                                 {/* Display error message*/}
-                                {errors.sex && <p className="text-red-500" text-xs mt-1>{errors}</p>}
+                                {errors.sex && <p className="text-red-500" text-xs mt-1>{errors.sex}</p>}
                             </div>
 
                             <div className="mb-4">
