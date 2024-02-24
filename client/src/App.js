@@ -26,7 +26,7 @@ function App() {
           <Route path="/create-exam" element={<CreateExamPage />} />
           {/* Define a default/fallback route if no other route matches */}
           <Route
-            path="/" element={<div>element={<ExamTable />}</div>}
+            path="/" element={<ExamTable />}
           />
         </Routes>
       </div>
