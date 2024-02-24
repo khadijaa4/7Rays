@@ -1,44 +1,87 @@
-import React from 'react';
+import fakeData from "./patientData.json";
+import * as React from "react";
+import { useTable } from "react-table";
 
-const data = [
-    { patient_id: "Anom", exam_id: "Exam-1", image: "", key_findings: "so cool",
-    brixia_score: "345", age: 19, sex: "Male", bmi: "28", zip_code: 80923},
-]
-
-function ExamTable(){
+function ExamTable() {
+    const data = React.useMemo(() => fakeData, []);
+    const columns = React.useMemo(
+      () => [
+        {
+          Header: "Patient ID",
+          accessor: "PATIENT_ID",
+        },
+        {
+          Header: "Exam ID",
+          accessor: "exam_Id",
+        },
+        {
+          Header: "Image",
+          accessor: "png_filename",
+        },
+        {
+          Header: "Age",
+          accessor: "AGE",
+        },
+        {
+          Header: "Gender",
+          accessor: "SEX",
+        },
+        {
+          Header: "Zip Code",
+          accessor: "ZIP",
+        },
+        {
+            Header: "BMI",
+            accessor: "LATEST_BMI",
+          },
+        
+        {
+            Header: "Latest Weight",
+            accessor: "LATEST WEIGHT",
+          },
+        {
+            Header: "ICU Admit",
+            accessor: "ICU Admit",
+          },
+        {
+            Header: "# ICU admits",
+            accessor: "# ICU admits",
+          },
+          {
+            Header: "Mortality",
+            accessor: "MORTALITY",
+          },  
+      ],
+      []
+    );
+  
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+      useTable({ columns, data });
+    return ( <div> <table {...getTableProps()}>
+    <thead>
+      {headerGroups.map((headerGroup) => (
+        <tr {...headerGroup.getHeaderGroupProps()}>
+          {headerGroup.headers.map((column) => (
+            <th {...column.getHeaderProps()}>
+              {column.render("Header")}
+            </th>
+          ))}
+        </tr>
+      ))}
+    </thead>
+    <tbody {...getTableBodyProps()}>
+      {rows.map((row) => {
+        prepareRow(row);
         return (
-            <div>  <table>
-            <tr>
-                <th>Patient ID</th>
-                <th>Exam ID</th>
-                <th>Image</th>
-                <th>Key Findings</th>
-                <th>Brixia Score</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>BMI</th>
-                <th>Zip Code</th>
-                
-            </tr>
-                {data.map((val, key) => {
-                return (
-                    <tr key={key}>
-                        <td>{val.patient_id}</td>
-                        <td>{val.exam_id}</td>
-                        <td>{val.image}</td>
-                        <td>{val.key_findings}</td>
-                        <td>{val.brixia_score}</td>
-                        <td>{val.age}</td>
-                        <td>{val.sex}</td>
-                        <td>{val.bmi}</td>
-                        <td>{val.zip_code}</td>
-                    </tr>
-                )
-                })}
-        </table></div>
-          
-        ); 
-    
+          <tr {...row.getRowProps()}>
+            {row.cells.map((cell) => (
+              <td {...cell.getCellProps()}> {cell.render("Cell")} </td>
+            ))}
+          </tr>
+        );
+      })}
+    </tbody>
+  </table></div>);
 }
 
 export default ExamTable;
