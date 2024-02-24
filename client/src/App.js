@@ -17,7 +17,7 @@ function App() {
         <header className="App-header">
           {/* <p>{response}</p> */}
         </header>
-
+        <Header />
         {/* Define routes within Routes component */}
         <Routes>
           {/* Define a route for PatientsPage */}
