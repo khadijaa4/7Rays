@@ -2,10 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { useApi } from "./hooks/use-api";
+import Header from "./Header"
 import PatientsPage from "./PatientsPage";
 import CreateExamPage from './CreateExamPage';
-// Import other components/pages if necessary
 import ExamTable from './ExamTable'
+
+
 function App() {
 
 
@@ -15,7 +17,7 @@ function App() {
         <header className="App-header">
           {/* <p>{response}</p> */}
         </header>
-        
+
         {/* Define routes within Routes component */}
         <Routes>
           {/* Define a route for PatientsPage */}
@@ -24,8 +26,7 @@ function App() {
           <Route path="/create-exam" element={<CreateExamPage />} />
           {/* Define a default/fallback route if no other route matches */}
           <Route
-            path="/"
-            element={<div>Home Page or some default content</div>}
+            path="/" element={<div>element={<ExamTable />}</div>}
           />
         </Routes>
       </div>
