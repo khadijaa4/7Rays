@@ -67,7 +67,9 @@ function AdminPage() {
   
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
       useTable({ columns, data });
-    return ( <div> <table {...getTableProps()}>
+    return ( <div> 
+    <button>Create Exam</button>
+    <table {...getTableProps()}>
     <thead>
       {headerGroups.map((headerGroup) => (
         <tr {...headerGroup.getHeaderGroupProps()}>
