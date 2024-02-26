@@ -6,8 +6,7 @@ import Header from "./Header"
 import PatientsPage from "./PatientsPage";
 import CreateExamPage from './CreateExamPage';
 import ExamTable from './ExamTable'
-
-
+import AdminPage from "./Admin";
 function App() {
 
 
@@ -21,9 +20,10 @@ function App() {
         {/* Define routes within Routes component */}
         <Routes>
           {/* Define a route for PatientsPage */}
+          <Route path="/" element={<ExamTable/>} />
           <Route path="/patients" element={<PatientsPage />} />
-          {/* Define a route for CreateExamPage */}
-          <Route path="/create-exam" element={<CreateExamPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          {/* You can define more routes for other pages/components here */}
           {/* Define a default/fallback route if no other route matches */}
           <Route
             path="/" element={<ExamTable />}
