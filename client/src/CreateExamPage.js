@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import useExamsData, {fetchData} from './useExamsData';
+
   // Initial form data
   const initialFormData = {
     patientId: '',
@@ -61,7 +63,7 @@ const CreateExamPage = () => {
 
                 // If the form is valid send the request to the server
                 try {
-                    const response = await fetch('http://localhost:9000/api/exams', {
+                    const response = await fetch('http://localhost:9000/exams', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(formData),
@@ -71,6 +73,7 @@ const CreateExamPage = () => {
                     }
                     //const data = await response.json();
                     setMessage('Exam added successfully');
+                    //fetchData();
                     setFormData(initialFormData);
                 } catch (error) {
                     // Log and display any error messages

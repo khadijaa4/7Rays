@@ -1,9 +1,17 @@
 import fakeData from "./patientData.json";
-import * as React from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import { useTable } from "react-table";
+import useExamsData from "./useExamsData";
 
 function AdminPage() {
-    const data = React.useMemo(() => fakeData, []);
+  const [data, fetchData] = useExamsData();
+
+    const handleDelete = () => {
+      //console.log({PATIENT_ID})
+      fetch(`http://localhost:9000/exams/:id`, {method: "DELETE"})
+      console.log("Deleted")
+    }  
     const columns = React.useMemo(
       () => [
         {
@@ -18,7 +26,7 @@ function AdminPage() {
           Header: "Image",
           accessor: "png_filename",
           Cell: ({ value }) => (
-            <img src={value} alt="X-Ray" className="w-16 h-16" />
+            <img src="https://i.pinimg.com/564x/7f/26/e7/7f26e71b2c84e6b16d4f6d3fd8a58bca.jpg" alt="X-Ray" className="w-16 h-16" />
           ),
         },
         {
@@ -37,19 +45,6 @@ function AdminPage() {
             Header: "BMI",
             accessor: "LATEST_BMI",
           },
-        
-        {
-            Header: "Latest Weight",
-            accessor: "LATEST WEIGHT",
-          },
-        {
-            Header: "ICU Admit",
-            accessor: "ICU Admit",
-          },
-        {
-            Header: "# ICU admits",
-            accessor: "# ICU admits",
-          },
           {
             Header: "Mortality",
             accessor: "MORTALITY",
@@ -64,11 +59,13 @@ function AdminPage() {
       ],
       []
     );
-  
+      
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
       useTable({ columns, data });
     return ( <div> 
-    <button>Create Exam</button>
+   <a  href="/create-exam">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+      Create Exam</button></a>
     <table {...getTableProps()}>
     <thead>
       {headerGroups.map((headerGroup) => (
@@ -91,8 +88,10 @@ function AdminPage() {
               <td {...cell.getCellProps()}> {cell.render("Cell")} </td>
             ))}
             {/* will have the id number of patient and exam # so that when it goes to page it pulls that id information */}
-            <td><a href="/update/1/1">Update</a></td>
-            <td><a href="/delete">Delete</a></td>
+            <td><a href="/update/1/1"><button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">Update</button></a></td>
+            <td><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+            onClick={handleDelete}>
+              Delete</button></td>
           </tr>
         );
       })}

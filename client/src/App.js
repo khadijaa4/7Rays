@@ -23,6 +23,7 @@ function App() {
           <Route path="/" element={<ExamTable/>} />
           <Route path="/patients" element={<PatientsPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/create-exam" element={<CreateExamPage />} />
           {/* You can define more routes for other pages/components here */}
           {/* Define a default/fallback route if no other route matches */}
           <Route

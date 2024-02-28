@@ -10,13 +10,13 @@ const examController = require('../controllers/exam-controller');
 router.get('/', examController.getExams);
 
 // Get a single exam by ID
-router.get('/:id', examController.getExamById);
+router.get('/:PATIENT_ID', examController.getExamById);
 
 // Create a new exam
 router.post('/', examController.postExam);
 
 // Delete an exam by ID
-router.delete('/:id', examController.deleteExamById);
+router.delete('/:PATIENT_ID', examController.deleteExamById);
 
 // Update an exam by ID
 router.patch('/:id', examController.patchExamById);
