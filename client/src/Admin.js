@@ -10,10 +10,16 @@ function AdminPage() {
     const handleDelete = (_id) => {
     
       console.log(_id);
-      fetch(`http://localhost:9000/exams/${_id}`, {method: "DELETE"})
-  
-      console.log("Deleted")
-    }  
+      fetch(`http://localhost:9000/exams/${_id}`, {method: "DELETE"}).then(() => {
+        console.log("Deleted");
+        
+        fetchData();
+      })
+      .catch((error) => {
+        console.error("Error deleting exam:", error);
+      });
+  };
+
     const columns = React.useMemo(
       () => [
         {

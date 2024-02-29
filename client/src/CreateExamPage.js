@@ -3,13 +3,14 @@ import useExamsData, {fetchData} from './useExamsData';
 
   // Initial form data
   const initialFormData = {
-    patientId: '',
-    age: '',
-    sex: '',
-    bmi: '',
-    zipCode: '',
-    examId: '',
-    imageUrl: '',
+    PATIENT_ID: '',
+    AGE: '',
+    SEX: '',
+    LATEST_BMI: '',
+    ZIP: '',
+    exam_Id: '',
+    png_filename: '',
+    MORTALITY: '', 
     date: '',
     keyFindings: '',
     brixiaScore: ''
@@ -26,13 +27,13 @@ const CreateExamPage = () => {
     // simple front-end validation
     const validateForm = () => {
                 let tempErrors = {};
-                if (!formData.patientId.trim()) tempErrors.patientId = 'Patient ID is required';
-                if (!formData.age || formData.age <= 0) tempErrors.age = 'Valid age is required';
-                if (!formData.sex.trim()) tempErrors.sex = 'Sex is required';
-                if (!formData.bmi || formData.bmi <= 0) tempErrors.bmi = 'Valid BMI is required';
-                if (!formData.zipCode.trim()) tempErrors.zipCode = 'Zip code is required';
-                if (!formData.examId.trim()) tempErrors.examId = 'Exam ID is required';
-                if (!formData.imageUrl.trim()) tempErrors.imageUrl = 'Image URL is required';
+                if (!formData.PATIENT_ID.trim()) tempErrors.PATIENT_ID = 'Patient ID is required';
+                if (!formData.AGE || formData.AGE <= 0) tempErrors.AGE = 'Valid age is required';
+                if (!formData.SEX.trim()) tempErrors.SEX = 'Sex is required';
+                if (!formData.LATEST_BMI || formData.LATEST_BMI <= 0) tempErrors.LATEST_BMI = 'Valid LATEST_BMI is required';
+                if (!formData.ZIP.trim()) tempErrors.ZIP = 'Zip code is required';
+                if (!formData.exam_Id.trim()) tempErrors.exam_Id = 'Exam ID is required';
+                if (!formData.png_filename.trim()) tempErrors.png_filename = 'Image URL is required';
                 if (!formData.date.trim()) tempErrors.date = 'Date is required';
                 if (!formData.keyFindings.trim()) tempErrors.keyFindings = 'Key findings are required';
                 if (!formData.brixiaScore.trim()) tempErrors.brixiaScore = 'Brixia score is required';
@@ -75,6 +76,7 @@ const CreateExamPage = () => {
                     setMessage('Exam added successfully');
                     //fetchData();
                     setFormData(initialFormData);
+                    //TODO: Add a route back to admin page 
                 } catch (error) {
                     // Log and display any error messages
                     setMessage(`Error: ${error.message || 'There was an error adding the exam'}`);
@@ -112,79 +114,79 @@ const CreateExamPage = () => {
                         <div className="md:col-span-1">
                             <h2 className="text-xl font-semibold mb-3">Patient Info</h2>
                             <div className="mb-4">
-                                <label htmlFor="patientId" className="block text-sm font-medium text-gray-700">Patient ID</label>
+                                <label htmlFor="PATIENT_ID" className="block text-sm font-medium text-gray-700">Patient ID</label>
                                 <input
                                     type="text"
-                                    name="patientId"
-                                    id="patientId"
-                                    value={formData.patientId}
+                                    name="PATIENT_ID"
+                                    id="PATIENT_ID"
+                                    value={formData.PATIENT_ID}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
                                 {/* Display error message if the patientId field has an error */}
-                                {errors.patientId && <p className="text-red-500" text-xs mt-1>{errors.patientId}</p>}
+                                {errors.PATIENT_ID && <p className="text-red-500" text-xs mt-1>{errors.PATIENT_ID}</p>}
                             </div>
 
                             {/* Other patient info fields */}
                             <div className="mb-4">
-                                <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>
+                                <label htmlFor="AGE" className="block text-sm font-medium text-gray-700">Age</label>
                                 <input
                                     type="number"
-                                    name="age"
-                                    id="age"
-                                    value={formData.age}
+                                    name="AGE"
+                                    id="AGE"
+                                    value={formData.AGE}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
                                 {/* Display error message if the age field has an error*/}
-                                {errors.age && <p className="text-red-500" text-xs mt-1>{errors.age}</p>}
+                                {errors.AGE && <p className="text-red-500" text-xs mt-1>{errors.AGE}</p>}
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="sex" className="block text-sm font-medium text-gray-700">Sex</label>
+                                <label htmlFor="SEX" className="block text-sm font-medium text-gray-700">Sex</label>
                                 <input
                                     type="text"
-                                    name="sex"
-                                    id="sex"
-                                    value={formData.sex}
+                                    name="SEX"
+                                    id="SEX"
+                                    value={formData.SEX}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
                                 {/* Display error message*/}
-                                {errors.sex && <p className="text-red-500" text-xs mt-1>{errors.sex}</p>}
+                                {errors.SEX && <p className="text-red-500" text-xs mt-1>{errors.SEX}</p>}
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="bmi" className="block text-sm font-medium text-gray-700">BMI</label>
+                                <label htmlFor="LATEST_BMI" className="block text-sm font-medium text-gray-700">BMI</label>
                                 <input
                                     type="text"
-                                    name="bmi"
-                                    id="bmi"
-                                    value={formData.bmi}
+                                    name="LATEST_BMI"
+                                    id="LATEST_BMI"
+                                    value={formData.LATEST_BMI}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
                                 {/* Display error message if the bmi field has an error */}
-                                {errors.bmi && <p className="text-red-500" text-xs mt-1>{errors.bmi}</p>}
+                                {errors.LATEST_BMI && <p className="text-red-500" text-xs mt-1>{errors.LATEST_BMI}</p>}
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">ZipCode</label>
+                                <label htmlFor="ZIP" className="block text-sm font-medium text-gray-700">Zip Code</label>
                                 <input
                                     type="text"
-                                    name="zipCode"
-                                    id="zipCode"
-                                    value={formData.zipCode}
+                                    name="ZIP"
+                                    id="ZIP"
+                                    value={formData.ZIP}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
-                                {/* Display error message if the zipCode field has an error */}
-                                {errors.zipCode && <p className="text-red-500" text-xs mt-1>{errors.zipCode}</p>}
+                                {/* Display error message if the ZIP field has an error */}
+                                {errors.ZIP && <p className="text-red-500" text-xs mt-1>{errors.ZIP}</p>}
                             </div>
                         </div>
 
@@ -192,33 +194,33 @@ const CreateExamPage = () => {
                         <div className="md:col-span-1">
                             <h2 className="text-xl font-semibold mb-3">Exam Info</h2>
                             <div className="mb-4">
-                                <label htmlFor="examId" className="block text-sm font-medium text-gray-700">Exam ID</label>
+                                <label htmlFor="exam_Id" className="block text-sm font-medium text-gray-700">Exam ID</label>
                                 <input
                                     type="text"
-                                    name="examId"
-                                    id="examId"
-                                    value={formData.examId}
+                                    name="exam_Id"
+                                    id="exam_Id"
+                                    value={formData.exam_Id}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
-                                {/* Display error message if the examId field has an error */}
-                                {errors.examId && <p className="text-red-500" text-xs mt-1>{errors.examId}</p>}
+                                {/* Display error message if the exam_Id field has an error */}
+                                {errors.exam_Id && <p className="text-red-500" text-xs mt-1>{errors.exam_Id}</p>}
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image URL</label>
+                                <label htmlFor="png_filename" className="block text-sm font-medium text-gray-700">Image URL</label>
                                 <input
                                     type="text"
-                                    name="imageUrl"
-                                    id="imageUrl"
-                                    value={formData.imageUrl}
+                                    name="png_filename"
+                                    id="png_filename"
+                                    value={formData.png_filename}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
-                                {/* Display error message if the imageUrl field has an error */}
-                                {errors.imageUrl && <p className="text-red-500" text-xs mt-1>{errors.imageUrl}</p>}
+                                {/* Display error message if the png_filename field has an error */}
+                                {errors.png_filename && <p className="text-red-500" text-xs mt-1>{errors.png_filename}</p>}
                             </div>
 
                             <div className="mb-4">
