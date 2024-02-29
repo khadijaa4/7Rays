@@ -7,6 +7,7 @@ import PatientsPage from "./PatientsPage";
 import CreateExamPage from './CreateExamPage';
 import ExamTable from './ExamTable'
 import AdminPage from "./Admin";
+import UpdatePage from "./Update";
 function App() {
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/patients" element={<PatientsPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/create-exam" element={<CreateExamPage />} />
+          <Route path="/update" element={<UpdatePage />} />
           {/* You can define more routes for other pages/components here */}
           {/* Define a default/fallback route if no other route matches */}
           <Route

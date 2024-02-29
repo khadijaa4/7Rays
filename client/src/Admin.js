@@ -88,7 +88,7 @@ function AdminPage() {
               <td {...cell.getCellProps()}> {cell.render("Cell")} </td>
             ))}
             {/* will have the id number of patient and exam # so that when it goes to page it pulls that id information */}
-            <td><a href="/update/1/1"><button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">Update</button></a></td>
+            <td><a href="/update"><button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">Update</button></a></td>
             <td><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
             onClick={handleDelete}>
               Delete</button></td>
