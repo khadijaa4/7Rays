@@ -1,15 +1,17 @@
-import fakeData from "./patientData.json";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useTable } from "react-table";
 import useExamsData from "./useExamsData";
 
+
 function AdminPage() {
   const [data, fetchData] = useExamsData();
 
-    const handleDelete = () => {
-      //console.log({PATIENT_ID})
-      fetch(`http://localhost:9000/exams/:id`, {method: "DELETE"})
+    const handleDelete = (_id) => {
+    
+      console.log(_id);
+      fetch(`http://localhost:9000/exams/${_id}`, {method: "DELETE"})
+  
       console.log("Deleted")
     }  
     const columns = React.useMemo(
@@ -88,10 +90,16 @@ function AdminPage() {
               <td {...cell.getCellProps()}> {cell.render("Cell")} </td>
             ))}
             {/* will have the id number of patient and exam # so that when it goes to page it pulls that id information */}
-            <td><a href="/update"><button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">Update</button></a></td>
-            <td><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={handleDelete}>
-              Delete</button></td>
+            <td><a href="/update">
+              <button 
+                  class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                    Update
+                    </button></a></td>
+            <td><button 
+                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                  onClick={() => handleDelete(row.original._id)}>
+                  Delete
+                  </button></td>
           </tr>
         );
       })}
