@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import useExamsData, {fetchData} from './useExamsData';
 
   // Initial form data
+  let search = window.location.search;
+  let params = new URLSearchParams(search);
+  const pid = params.get('pid');
+  const eid = params.get('eid');
+  console.log(pid);
+  console.log(eid);
+
   const initialFormData = {
-    patientId: '',
-    age: '',
-    sex: '',
-    bmi: '',
+    PATIENT_ID: pid,
+    AGE: '',
+    SEX: '',
+    LATEST_BMI: '',
     zipCode: '',
     examId: '',
     imageUrl: '',
@@ -23,13 +30,15 @@ const UpdatePage = () => {
     const [errors, setErrors] = useState({});
     const [error, setError] = useState(null);
 
+
+
     // simple front-end validation
     const validateForm = () => {
                 let tempErrors = {};
-                if (!formData.patientId.trim()) tempErrors.patientId = 'Patient ID is required';
-                if (!formData.age || formData.age <= 0) tempErrors.age = 'Valid age is required';
-                if (!formData.sex.trim()) tempErrors.sex = 'Sex is required';
-                if (!formData.bmi || formData.bmi <= 0) tempErrors.bmi = 'Valid BMI is required';
+                if (!formData.PATIENT_ID.trim()) tempErrors.PATIENT_ID = 'Patient ID is required';
+                if (!formData.AGE|| formData.AGE<= 0) tempErrors.AGE= 'Valid AGEis required';
+                if (!formData.SEX.trim()) tempErrors.SEX = 'SEX is required';
+                if (!formData.LATEST_BMI || formData.LATEST_BMI <= 0) tempErrors.LATEST_BMI = 'Valid BMI is required';
                 if (!formData.zipCode.trim()) tempErrors.zipCode = 'Zip code is required';
                 if (!formData.examId.trim()) tempErrors.examId = 'Exam ID is required';
                 if (!formData.imageUrl.trim()) tempErrors.imageUrl = 'Image URL is required';
@@ -74,64 +83,64 @@ const UpdatePage = () => {
                         <div className="md:col-span-1">
                             <h2 className="text-xl font-semibold mb-3">Patient Info</h2>
                             <div className="mb-4">
-                                <label htmlFor="patientId" className="block text-sm font-medium text-gray-700">Patient ID</label>
+                                <label htmlFor="PATIENT_ID" className="block text-sm font-medium text-gray-700">Patient ID</label>
                                 <input
                                     type="text"
-                                    name="patientId"
-                                    id="patientId"
-                                    value={formData.patientId}
+                                    name="PATIENT_ID"
+                                    id="PATIENT_ID"
+                                    value={formData.PATIENT_ID}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
-                                {/* Display error message if the patientId field has an error */}
-                                {errors.patientId && <p className="text-red-500" text-xs mt-1>{errors.patientId}</p>}
+                                {/* Display error message if the PATIENT_ID field has an error */}
+                                {errors.PATIENT_ID && <p className="text-red-500" text-xs mt-1>{errors.PATIENT_ID}</p>}
                             </div>
 
                             {/* Other patient info fields */}
                             <div className="mb-4">
-                                <label htmlFor="age" className="block text-sm font-medium text-gray-700">Age</label>
+                                <label htmlFor="AGE" className="block text-sm font-medium text-gray-700">Age</label>
                                 <input
                                     type="number"
-                                    name="age"
-                                    id="age"
-                                    value={formData.age}
+                                    name="AGE"
+                                    id="AGE"
+                                    value={formData.AGE}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
                                 {/* Display error message if the age field has an error*/}
-                                {errors.age && <p className="text-red-500" text-xs mt-1>{errors.age}</p>}
+                                {errors.AGE&& <p className="text-red-500" text-xs mt-1>{errors.AGE}</p>}
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="sex" className="block text-sm font-medium text-gray-700">Sex</label>
+                                <label htmlFor="SEX" className="block text-sm font-medium text-gray-700">Sex</label>
                                 <input
                                     type="text"
-                                    name="sex"
-                                    id="sex"
-                                    value={formData.sex}
+                                    name="SEX"
+                                    id="SEX"
+                                    value={formData.SEX}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
                                 {/* Display error message*/}
-                                {errors.sex && <p className="text-red-500" text-xs mt-1>{errors.sex}</p>}
+                                {errors.SEX && <p className="text-red-500" text-xs mt-1>{errors.SEX}</p>}
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="bmi" className="block text-sm font-medium text-gray-700">BMI</label>
+                                <label htmlFor="LATEST_BMI" className="block text-sm font-medium text-gray-700">BMI</label>
                                 <input
                                     type="text"
-                                    name="bmi"
-                                    id="bmi"
-                                    value={formData.bmi}
+                                    name="LATEST_BMI"
+                                    id="LATEST_BMI"
+                                    value={formData.LATEST_BMI}
                                     onChange={handleInputChange}
                                     className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                     required
                                 />
                                 {/* Display error message if the bmi field has an error */}
-                                {errors.bmi && <p className="text-red-500" text-xs mt-1>{errors.bmi}</p>}
+                                {errors.LATEST_BMI && <p className="text-red-500" text-xs mt-1>{errors.LATEST_BMI}</p>}
                             </div>
 
                             <div className="mb-4">

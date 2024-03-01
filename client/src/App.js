@@ -8,9 +8,11 @@ import CreateExamPage from './CreateExamPage';
 import ExamTable from './ExamTable'
 import AdminPage from "./Admin";
 import UpdatePage from "./Update";
+import ViewPage from "./ViewPage"
+
+
 function App() {
-
-
+  
   return (
     <Router>
       <div className="App">
@@ -26,6 +28,7 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/create-exam" element={<CreateExamPage />} />
           <Route path="/update" element={<UpdatePage />} />
+          <Route path="/ViewPage" element={<ViewPage/>}/>
           {/* You can define more routes for other pages/components here */}
           {/* Define a default/fallback route if no other route matches */}
           <Route
